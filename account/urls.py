@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from .yasg import urlpatterns as url_doc
 
 
 urlpatterns = [
@@ -9,5 +8,3 @@ urlpatterns = [
     path('send-reset-password-key/', views.SendResetPasswordKeyApiView.as_view()),
     path('reset-password/', views.ResetPasswordApiView.as_view()),
 ]
-
-urlpatterns += url_doc

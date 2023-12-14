@@ -1,0 +1,21 @@
+from rest_framework.viewsets import ModelViewSet
+
+
+class PermissionByActionMixin:
+    permission_classes_by_action = {}
+
+    def get_permissions(self):
+        permission_classes = self.permission_classes_by_action.get(self.action, None)
+        if self.action == 'partial_update' or self.action == 'update_partial':
+            permission_classes = self.permission_classes_by_action.get('update', None)
+        if permission_classes is None:
+            return super().get_permissions()
+
+        return [permission() for permission in permission_classes]
+
+
+class UltraModelViewSet(
+    PermissionByActionMixin,
+    ModelViewSet
+):
+    pass
